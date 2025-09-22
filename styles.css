@@ -46,11 +46,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: #2c3e50;
-}
-
-.nav-logo i {
-    margin-right: 10px;
-    color: #f25e0a;
+    max-width: 220px;
 }
 
 .nav-menu {
@@ -662,6 +658,10 @@ section {
 
     .nav-menu li {
         margin: 1rem 0;
+    }
+
+    .nav-logo {
+        max-width: 150px;
     }
 
     .hamburger.active .bar:nth-child(2) {
