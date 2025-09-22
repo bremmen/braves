@@ -50,7 +50,7 @@ body {
 
 .nav-logo i {
     margin-right: 10px;
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .nav-menu {
@@ -68,7 +68,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .nav-link::after {
@@ -78,7 +78,7 @@ body {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: #ff6b35;
+    background-color: #f25e0a;
     transition: width 0.3s ease;
 }
 
@@ -148,7 +148,7 @@ body {
 }
 
 .btn-primary {
-    background: #ff6b35;
+    background: #f25e0a;
     color: white;
 }
 
@@ -190,7 +190,7 @@ body {
 
 /* Secciones generales */
 section {
-    padding: 80px 0;
+    padding: 120px 0;
 }
 
 .section-header {
@@ -280,7 +280,7 @@ section {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #ff6b35;
+    color: #f25e0a;
     margin-bottom: 0.5rem;
 }
 
@@ -300,9 +300,9 @@ section {
 
 .filter-btn {
     padding: 12px 25px;
-    border: 2px solid #ff6b35;
+    border: 2px solid #f25e0a;
     background: transparent;
-    color: #ff6b35;
+    color: #f25e0a;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -311,7 +311,7 @@ section {
 
 .filter-btn.active,
 .filter-btn:hover {
-    background: #ff6b35;
+    background: #f25e0a;
     color: white;
 }
 
@@ -362,7 +362,7 @@ section {
 
 .portfolio-year {
     display: inline-block;
-    background: #ff6b35;
+    background: #f25e0a;
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -390,7 +390,7 @@ section {
 .contact-icon {
     width: 60px;
     height: 60px;
-    background: #ff6b35;
+    background: #f25e0a;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -485,7 +485,7 @@ section {
 }
 
 .btn-call {
-    background: #ff6b35;
+    background: #f25e0a;
     color: white;
     display: flex;
     align-items: center;
@@ -537,7 +537,7 @@ section {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #ff6b35;
+    border-color: #f25e0a;
 }
 
 .form-group textarea {
@@ -569,12 +569,12 @@ section {
 
 .footer-logo i {
     margin-right: 10px;
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .footer-section h3 {
     margin-bottom: 1.5rem;
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .footer-section ul {
@@ -592,7 +592,7 @@ section {
 }
 
 .footer-section ul li a:hover {
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .footer-section p {
@@ -603,7 +603,7 @@ section {
 
 .footer-section p i {
     margin-right: 10px;
-    color: #ff6b35;
+    color: #f25e0a;
 }
 
 .social-links {
@@ -626,7 +626,7 @@ section {
 }
 
 .social-links a:hover {
-    background: #ff6b35;
+    background: #f25e0a;
     transform: translateY(-3px);
 }
 
@@ -646,7 +646,7 @@ section {
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 110px;
         flex-direction: column;
         background-color: white;
         width: 100%;
