@@ -49,9 +49,9 @@ filterButtons.forEach(button => {
         filterButtons.forEach(btn => btn.classList.remove('active'));
         // Agregar clase active al botón clickeado
         button.classList.add('active');
-        
+
         const filterValue = button.getAttribute('data-filter');
-        
+
         portfolioItems.forEach(item => {
             if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                 item.style.display = 'block';
@@ -89,40 +89,42 @@ document.addEventListener('DOMContentLoaded', () => {
 // Formulario de contacto
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Obtener datos del formulario
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    
-    // Validar campos requeridos
-    if (!data.nombre || !data.email || !data.servicio || !data.mensaje) {
-        showNotification('Por favor, complete todos los campos requeridos.', 'error');
-        return;
-    }
-    
-    // Validar email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showNotification('Por favor, ingrese un email válido.', 'error');
-        return;
-    }
-    
-    // Simular envío del formulario
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    submitBtn.innerHTML = '<span class="loading"></span> Enviando...';
-    submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
-        this.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Obtener datos del formulario
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+
+        // Validar campos requeridos
+        if (!data.nombre || !data.email || !data.servicio || !data.mensaje) {
+            showNotification('Por favor, complete todos los campos requeridos.', 'error');
+            return;
+        }
+
+        // Validar email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('Por favor, ingrese un email válido.', 'error');
+            return;
+        }
+
+        // Simular envío del formulario
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        submitBtn.innerHTML = '<span class="loading"></span> Enviando...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+            showNotification('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.', 'success');
+            this.reset();
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }, 2000);
+    });
+}
 
 // Función para mostrar notificaciones
 function showNotification(message, type = 'info') {
@@ -135,7 +137,7 @@ function showNotification(message, type = 'info') {
             <span>${message}</span>
         </div>
     `;
-    
+
     // Estilos para la notificación
     notification.style.cssText = `
         position: fixed;
@@ -151,15 +153,15 @@ function showNotification(message, type = 'info') {
         transition: transform 0.3s ease;
         max-width: 400px;
     `;
-    
+
     // Agregar al DOM
     document.body.appendChild(notification);
-    
+
     // Animar entrada
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
-    
+
     // Remover después de 5 segundos
     setTimeout(() => {
         notification.style.transform = 'translateX(400px)';
@@ -174,7 +176,7 @@ function showNotification(message, type = 'info') {
 // Contador animado para estadísticas
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    
+
     counters.forEach(counter => {
         const target = parseInt(counter.textContent.replace(/\D/g, ''));
         const suffix = counter.textContent.replace(/\d/g, '');
@@ -209,15 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Efecto parallax suave en el hero
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
-
 // Preloader (opcional)
 window.addEventListener('load', () => {
     const preloader = document.querySelector('.preloader');
@@ -232,65 +225,67 @@ window.addEventListener('load', () => {
 // Validación en tiempo real del formulario
 const formInputs = document.querySelectorAll('#contactForm input, #contactForm select, #contactForm textarea');
 
-formInputs.forEach(input => {
-    input.addEventListener('blur', function() {
-        validateField(this);
-    });
-    
-    input.addEventListener('input', function() {
-        if (this.classList.contains('error')) {
+if (formInputs.length) {
+    formInputs.forEach(input => {
+        input.addEventListener('blur', function () {
             validateField(this);
-        }
-    });
-});
+        });
 
-function validateField(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    let errorMessage = '';
-    
-    // Remover clases de error previas
-    field.classList.remove('error', 'success');
-    
-    if (field.hasAttribute('required') && !value) {
-        isValid = false;
-        errorMessage = 'Este campo es requerido';
-    } else if (field.type === 'email' && value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) {
+        input.addEventListener('input', function () {
+            if (this.classList.contains('error')) {
+                validateField(this);
+            }
+        });
+    });
+
+    function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
+
+        // Remover clases de error previas
+        field.classList.remove('error', 'success');
+
+        if (field.hasAttribute('required') && !value) {
             isValid = false;
-            errorMessage = 'Ingrese un email válido';
+            errorMessage = 'Este campo es requerido';
+        } else if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                isValid = false;
+                errorMessage = 'Ingrese un email válido';
+            }
+        } else if (field.type === 'tel' && value) {
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            if (!phoneRegex.test(value.replace(/\s/g, ''))) {
+                isValid = false;
+                errorMessage = 'Ingrese un teléfono válido';
+            }
         }
-    } else if (field.type === 'tel' && value) {
-        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-        if (!phoneRegex.test(value.replace(/\s/g, ''))) {
-            isValid = false;
-            errorMessage = 'Ingrese un teléfono válido';
+
+        if (isValid) {
+            field.classList.add('success');
+        } else {
+            field.classList.add('error');
         }
-    }
-    
-    if (isValid) {
-        field.classList.add('success');
-    } else {
-        field.classList.add('error');
-    }
-    
-    // Mostrar/ocultar mensaje de error
-    let errorElement = field.parentNode.querySelector('.error-message');
-    if (!isValid) {
-        if (!errorElement) {
-            errorElement = document.createElement('div');
-            errorElement.className = 'error-message';
-            errorElement.style.cssText = `
+
+        // Mostrar/ocultar mensaje de error
+        let errorElement = field.parentNode.querySelector('.error-message');
+        if (!isValid) {
+            if (!errorElement) {
+                errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                errorElement.style.cssText = `
                 color: #e74c3c;
                 font-size: 0.9rem;
                 margin-top: 5px;
             `;
-            field.parentNode.appendChild(errorElement);
+                field.parentNode.appendChild(errorElement);
+            }
+            errorElement.textContent = errorMessage;
+        } else if (errorElement) {
+            errorElement.remove();
         }
-        errorElement.textContent = errorMessage;
-    } else if (errorElement) {
-        errorElement.remove();
     }
 }
 
