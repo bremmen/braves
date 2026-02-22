@@ -5,7 +5,7 @@
 @section('content')
 <h1 class="mb-4">Nuevo proyecto</h1>
 
-<form method="POST" action="{{ route('admin.portfolio.store') }}">
+<form method="POST" action="{{ route('admin.portfolio.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
         <label class="form-label">Título</label>
@@ -34,8 +34,9 @@
         </div>
     </div>
     <div class="mb-3">
-        <label class="form-label">Icono FontAwesome (ej: fa-home, fa-building)</label>
-        <input type="text" name="icon" class="form-control" value="{{ old('icon', 'fa-building') }}">
+        <label class="form-label">Imagen del Proyecto</label>
+        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+        @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="d-flex gap-2">
         <button type="submit" class="btn btn-primary">Crear proyecto</button>

@@ -312,3 +312,77 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Lógica del modal para el portfolio
+function initPortfolioModal() {
+    const modal = document.getElementById('portfolioModal');
+    const closeBtn = document.querySelector('.close-modal');
+
+    if (modal) {
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const title = this.getAttribute('data-title');
+                const desc = this.getAttribute('data-description');
+                const cat = this.getAttribute('data-category');
+                const year = this.getAttribute('data-year');
+                const imageUrl = this.getAttribute('data-image');
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalDescription').textContent = desc;
+                document.getElementById('modalCategory').textContent = cat;
+                document.getElementById('modalYear').textContent = year;
+
+                const modalImg = document.getElementById('modalImage');
+                const modalFallback = document.getElementById('modalImageFallback');
+
+                if (imageUrl && imageUrl.trim() !== '') {
+                    modalImg.src = imageUrl;
+                    modalImg.style.display = 'block';
+                    modalFallback.style.display = 'none';
+                } else {
+                    modalImg.style.display = 'none';
+                    modalFallback.style.display = 'flex';
+                }
+
+                modal.style.display = 'block';
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+
+                // Prevenir scroll en el body
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+    }
+}
+
+// Inicializar cuando el DOM esté listo o inmediatamente si ya lo está
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolioModal);
+} else {
+    initPortfolioModal();
+}

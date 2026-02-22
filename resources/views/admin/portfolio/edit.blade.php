@@ -5,7 +5,7 @@
 @section('content')
 <h1 class="mb-4">Editar proyecto</h1>
 
-<form method="POST" action="{{ route('admin.portfolio.update', $portfolio) }}">
+<form method="POST" action="{{ route('admin.portfolio.update', $portfolio) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="mb-3">
@@ -35,8 +35,15 @@
         </div>
     </div>
     <div class="mb-3">
-        <label class="form-label">Icono FontAwesome</label>
-        <input type="text" name="icon" class="form-control" value="{{ old('icon', $portfolio->icon) }}">
+        <label class="form-label">Imagen del Proyecto</label>
+        @if($portfolio->image)
+            <div class="mb-2">
+                <img src="{{ asset('storage/' . $portfolio->image) }}" alt="Project image" style="max-height: 150px; border-radius: 8px;">
+            </div>
+        @endif
+        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+        @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <small class="text-muted">Deja esto en blanco si no deseas cambiar la imagen actual.</small>
     </div>
     <div class="mb-3 form-check">
         <input type="hidden" name="active" value="0">

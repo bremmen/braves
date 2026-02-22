@@ -66,9 +66,22 @@
         </div>
         <div class="portfolio-grid">
             @foreach($projects as $project)
-            <div class="portfolio-item" data-category="{{ $project->category }}">
-                <div class="portfolio-image">
-                    <i class="fas {{ $project->icon }}"></i>
+            <div class="portfolio-item" 
+                 data-category="{{ $project->category }}"
+                 data-title="{{ $project->title }}"
+                 data-description="{{ $project->description }}"
+                 data-year="{{ $project->year }}"
+                 data-image="{{ $project->image ? asset('storage/' . $project->image) : '' }}"
+                 style="cursor: pointer;">
+                <div class="portfolio-image" style="padding: 0; background: none;">
+                    @if($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                        <!-- Fallback si no hay imagen -->
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-image" style="font-size: 4rem;"></i>
+                        </div>
+                    @endif
                 </div>
                 <div class="portfolio-content">
                     <h3>{{ $project->title }}</h3>
@@ -140,4 +153,28 @@
         </div>
     </div>
 </section>
+
+<!-- Portfolio Modal -->
+<div id="portfolioModal" class="portfolio-modal">
+    <div class="portfolio-modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="portfolio-modal-body">
+            <div class="portfolio-modal-image">
+                <img id="modalImage" src="" alt="Project Image" style="display:none; width: 100%; border-radius: 8px; object-fit: cover; max-height: 400px;">
+                <div id="modalImageFallback" style="display:none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 100%; height: 300px; border-radius: 8px; flex-direction: column; align-items: center; justify-content: center; color: white;">
+                    <i class="fas fa-image" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                </div>
+            </div>
+            <div class="portfolio-modal-info" style="margin-top: 20px;">
+                <h2 id="modalTitle" style="color: #2c3e50; margin-bottom: 15px;"></h2>
+                <div class="portfolio-modal-meta" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+                    <span id="modalCategory" style="background: #e9ecef; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; text-transform: capitalize;"></span>
+                    <span id="modalYear" class="portfolio-year" style="margin: 0;"></span>
+                </div>
+                <p id="modalDescription" style="color: #555; line-height: 1.8;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
